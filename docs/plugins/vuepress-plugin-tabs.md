@@ -21,8 +21,37 @@ yarn add -D @snippetors/vuepress-plugin-tabs
 ```js
 // .vuepress/config.js
 module.exports = {
-  plugins: ["@snippetors/vuepress-plugin-tabs"],
+  plugins: ["@snippetors/vuepress-plugin-tabs", options],
 };
+```
+
+### Options
+
+| Option | Description                                      | Type          | Accepted Values | Default |
+| :----- | :----------------------------------------------- | :------------ | :-------------- | :------ |
+| events | events to dispatch when the component is updated | Array[String] | -               | `[]`    |
+
+There is only one possible option, `events`, which is an array of event names. When this component is updated, these events will be dispatched.
+
+For a setting like
+
+```js
+module.exports = {
+  plugins: ["@snippetors/vuepress-plugin-tabs", ["event1", "event2"]],
+};
+```
+
+these events will be dispatched like
+
+```js
+window.dispatchEvent(new Event("event1"));
+window.dispatchEvent(new Event("event2"));
+```
+
+You can add listeners to the events to get notified when the component is updated.
+
+```js
+window.addEventListener("event1", callbackOfEvent1);
 ```
 
 ## Usage
