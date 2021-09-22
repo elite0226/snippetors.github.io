@@ -1,5 +1,6 @@
 ---
 home: true
+heroImage: /images/hero.svg
 tagline: Find packages contributed by Snippetors
 footer: MIT Licensed | Copyright © 2021-present Snippetors
 externalIcon: false

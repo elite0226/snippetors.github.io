@@ -1,13 +1,13 @@
 module.exports = {
   lang: "en-US",
   title: "Snippetors' Packages",
+  head: [["link", { rel: "icon", href: "/images/hero.svg" }]],
   plugins: [
     ["@snippetors/vuepress-plugin-tabs", {}],
     ["@snippetors/vuepress-plugin-code-copy", {}],
   ],
   themeConfig: {
-    logo: "",
-    logoDark: "",
+    logo: "/images/hero.svg",
     repo: "Snippetors/snippetors.github.io",
     docsDir: "docs",
     navbar: [
