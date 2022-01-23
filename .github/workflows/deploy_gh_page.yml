@@ -10,6 +10,8 @@ on:
 jobs:
   docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v2
@@ -21,19 +23,20 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
+        run: yarn upgrade
+
+      - name: Update yarn.lock
+        run: |
+
+          if ! git diff --exit-code --quiet yarn.lock
+          then
+            git config user.name "${GITHUB_ACTOR}"
+            git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+            git add yarn.lock
+            git commit -m "update yarn.lock"
+            git push
+          fi
 
       - name: Build VuePress site
         run: yarn build
